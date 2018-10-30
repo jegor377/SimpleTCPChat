@@ -65,11 +65,13 @@ def upload_thread(client_sock, file_path, file_size):
 def upload_command(client_sock, file_path):
 	if os.path.exists(file_path):
 		file_size = os.path.getsize(file_path)
-		MAX_FILE_SIZE = 1024 * 1024 * 1024 * 100 # 100MB
+		MAX_FILE_SIZE = 1024 * 1024 * 100 # 100MB
 		if file_size <= MAX_FILE_SIZE:
 			ut = Thread(target=upload_thread, args=(client_sock, file_path, file_size))
 			ut.daemon = True
 			ut.start()
+		else:
+			print("File is to damn big!")
 	else:
 		print("File doesn't exist!")
 
